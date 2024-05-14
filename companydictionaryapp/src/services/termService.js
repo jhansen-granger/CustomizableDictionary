@@ -1,0 +1,22 @@
+// src/services/termService.js
+import api from '../api';
+
+export const getTerms = async () => {
+  try {
+    const response = await api.get('/terms');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching terms:', error);
+    throw error;
+  }
+};
+
+export const addTerm = async (term) => {
+  try {
+    const response = await api.post('/terms', term);
+    return response.data;
+  } catch (error) {
+    console.error('Error adding term:', error);
+    throw error;
+  }
+};
