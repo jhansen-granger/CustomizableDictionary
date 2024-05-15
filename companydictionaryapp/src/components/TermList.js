@@ -18,6 +18,7 @@ const TermList = () => {
     const fetchTerms = async () => {
       try {
         const terms = await getTerms();
+        const sortedTerms = terms.sort((a, b) => a.name.localeCompare(b.name));
         setTerms(terms);
         setFilteredTerms(terms);
       } catch (error) {
@@ -49,7 +50,10 @@ const TermList = () => {
   const handleSave = async (id, updatedTerm) => {
     try {
       const savedTerm = await updateTerm(id, updatedTerm);
-      setTerms(terms.map(term => (term.id === id ? savedTerm : term)));
+      const updatedTerms = terms.map(term => (term.id === id ? savedTerm : term));
+      const sortedTerms = updatedTerms.sort((a, b) => a.name.localeCompare(b.name));
+      setTerms(sortedTerms);
+      setFilteredTerms(sortedTerms);
       setEditingTerm(null);
     } catch (error) {
       console.error('Error updating term:', error);
@@ -59,7 +63,10 @@ const TermList = () => {
   const handleDelete = async (id) => {
     try {
       await deleteTerm(id);
-      setTerms(terms.filter(term => term.id !== id));
+      const updatedTerms = terms.filter(term => term.id !== id);
+      const sortedTerms = updatedTerms.sort((a, b) => a.name.localeCompare(b.name));
+      setTerms(sortedTerms);
+      setFilteredTerms(sortedTerms);
       setEditingTerm(null);
     } catch (error) {
       console.error('Error deleting term:', error);
@@ -73,7 +80,10 @@ const TermList = () => {
   const handleAddTerm = async (newTerm) => {
     try {
       const savedTerm = await addTerm(newTerm);
-      setTerms([...terms, savedTerm]);
+      const updatedTerms = [...terms, savedTerm];
+      const sortedTerms = updatedTerms.sort((a, b) => a.name.localeCompare(b.name));
+      setTerms(sortedTerms);
+      setFilteredTerms(sortedTerms);
       setOpenNewTermDialog(false);
     } catch (error) {
       console.error('Error adding term:', error);

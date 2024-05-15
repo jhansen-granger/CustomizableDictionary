@@ -4,8 +4,8 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button } 
 
 const NewTermDialog = ({ open, onSave, onCancel }) => {
   const [name, setName] = useState('');
-  const [definition, setDefinition] = useState('');
   const [acronym, setAcronym] = useState('');
+  const [definition, setDefinition] = useState('');
 
   const handleSubmit = async () => {
     await onSave({ name, definition, acronym });
@@ -29,20 +29,20 @@ const NewTermDialog = ({ open, onSave, onCancel }) => {
         />
         <TextField
           margin="dense"
+          label="Acronym (optional)"
+          type="text"
+          fullWidth
+          value={acronym}
+          onChange={(e) => setAcronym(e.target.value)}
+        />
+        <TextField
+          margin="dense"
           label="Definition"
           type="text"
           fullWidth
           multiline
           value={definition}
           onChange={(e) => setDefinition(e.target.value)}
-        />
-        <TextField
-          margin="dense"
-          label="Acronym"
-          type="text"
-          fullWidth
-          value={acronym}
-          onChange={(e) => setAcronym(e.target.value)}
         />
       </DialogContent>
       <DialogActions>

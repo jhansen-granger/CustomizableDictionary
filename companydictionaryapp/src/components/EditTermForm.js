@@ -4,8 +4,8 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button } 
 
 const EditTermForm = ({ open, term, onSave, onCancel, onDelete}) => {
   const [name, setName] = useState(term.name);
-  const [definition, setDefinition] = useState(term.definition);
   const [acronym, setAcronym] = useState(term.acronym);
+  const [definition, setDefinition] = useState(term.definition);
 
   useEffect(() => {
     setName(term.name);
@@ -38,20 +38,20 @@ const EditTermForm = ({ open, term, onSave, onCancel, onDelete}) => {
         />
         <TextField
           margin="dense"
+          label="Acronym (optional)"
+          type="text"
+          fullWidth
+          value={acronym}
+          onChange={(e) => setAcronym(e.target.value)}
+        />
+        <TextField
+          margin="dense"
           label="Definition"
           type="text"
           fullWidth
           multiline
           value={definition}
           onChange={(e) => setDefinition(e.target.value)}
-        />
-        <TextField
-          margin="dense"
-          label="Acronym"
-          type="text"
-          fullWidth
-          value={acronym}
-          onChange={(e) => setAcronym(e.target.value)}
         />
       </DialogContent>
       <DialogActions>
