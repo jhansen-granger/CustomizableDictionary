@@ -1,6 +1,8 @@
 // backend/app.js
 const express = require('express');
+const cors = require('cors');
 const { Sequelize, DataTypes } = require('sequelize');
+
 const sequelize = new Sequelize({
   dialect: 'sqlite',
   storage: 'database.sqlite'
@@ -23,6 +25,7 @@ const Term = sequelize.define('Term', {
 });
 
 // Middleware
+app.use(cors()); // Enable CORS
 app.use(express.json());
 
 // Routes
@@ -47,16 +50,11 @@ app.post('/api/terms', async (req, res) => {
   }
 });
 
-app.listen(port, host, () => {
-  console.log(`Server running on http://${host}:${port}`);
-});
-
 // Sync database and start server
 sequelize.sync().then(() => {
-  app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
+  app.listen(port, host, () => {
+    console.log(`Server running on http://${host}:${port}`);
   });
 }).catch(error => {
   console.error('Unable to connect to the database:', error);
 });
-

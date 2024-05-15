@@ -1,8 +1,7 @@
 // src/components/AddTermForm.js
 import React, { useState } from 'react';
-import { addTerm } from '../services/termService';
 
-const AddTermForm = () => {
+const AddTermForm = ({ onAddTerm }) => {
   const [name, setName] = useState('');
   const [definition, setDefinition] = useState('');
 
@@ -10,7 +9,7 @@ const AddTermForm = () => {
     e.preventDefault();
     try {
       const newTerm = { name, definition };
-      await addTerm(newTerm);
+      await onAddTerm(newTerm);
       // Clear the form
       setName('');
       setDefinition('');

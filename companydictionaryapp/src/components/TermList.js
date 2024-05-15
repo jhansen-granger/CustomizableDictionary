@@ -1,8 +1,8 @@
-// src/components/TermsList.js
+// src/components/TermList.js
 import React, { useEffect, useState } from 'react';
 import { getTerms } from '../services/termService';
 
-const TermsList = () => {
+const TermList = () => {
   const [terms, setTerms] = useState([]);
 
   useEffect(() => {
@@ -32,4 +32,4 @@ const TermsList = () => {
   );
 };
 
-export default TermsList;
+export default TermList;
