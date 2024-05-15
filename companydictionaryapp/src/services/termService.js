@@ -20,3 +20,13 @@ export const addTerm = async (term) => {
     throw error;
   }
 };
+
+export const updateTerm = async (id, term) => {
+  try {
+    const response = await api.put(`/terms/${id}`, term);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating term:', error);
+    throw error;
+  }
+};

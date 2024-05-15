@@ -21,6 +21,10 @@ const Term = sequelize.define('Term', {
   definition: {
     type: DataTypes.TEXT,
     allowNull: false
+  },
+  acronym: {
+    type: DataTypes.STRING,
+    allowNull: true
   }
 });
 
@@ -41,11 +45,31 @@ app.get('/api/terms', async (req, res) => {
 
 app.post('/api/terms', async (req, res) => {
   try {
-    const { name, definition } = req.body;
-    const newTerm = await Term.create({ name, definition });
+    const { name, definition, acronym } = req.body;
+    const newTerm = await Term.create({ name, definition, acronym });
     res.json(newTerm);
   } catch (error) {
     console.error('Error adding term:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.put('/api/terms/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, definition, acronym } = req.body;
+    const term = await Term.findByPk(id);
+    if (term) {
+      term.name = name;
+      term.definition = definition;
+      term.acronym = acronym;
+      await term.save();
+      res.json(term);
+    } else {
+      res.status(404).json({ error: 'Term not found' });
+    }
+  } catch (error) {
+    console.error('Error updating term:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
