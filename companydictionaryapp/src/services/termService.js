@@ -30,3 +30,13 @@ export const updateTerm = async (id, term) => {
     throw error;
   }
 };
+
+export const deleteTerm = async (id) => {
+  try {
+    const response = await api.delete(`/terms/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting term:', error);
+    throw error;
+  }
+};

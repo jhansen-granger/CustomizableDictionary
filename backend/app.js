@@ -74,6 +74,22 @@ app.put('/api/terms/:id', async (req, res) => {
   }
 });
 
+app.delete('/api/terms/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const term = await Term.findByPk(id);
+    if (term) {
+      await term.destroy();
+      res.json({ message: 'Term deleted successfully' });
+    } else {
+      res.status(404).json({ error: 'Term not found' });
+    }
+  } catch (error) {
+    console.error('Error deleting term:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 // Sync database and start server
 sequelize.sync().then(() => {
   app.listen(port, host, () => {

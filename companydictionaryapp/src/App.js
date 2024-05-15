@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import TermList from './components/TermList';
-import AddTermForm from './components/AddTermForm';
 import { getTerms, addTerm as addTermService } from './services/termService';
 
 function App() {
@@ -37,7 +36,6 @@ function App() {
         <h1>Company Dictionary</h1>
       </header>
       <main>
-        <AddTermForm onAddTerm={addTerm} />
         <TermList terms={terms} />
       </main>
     </div>

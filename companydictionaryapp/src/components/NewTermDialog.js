@@ -1,31 +1,22 @@
-// src/components/EditTermForm.js
-import React, { useState, useEffect } from 'react';
+// src/components/NewTermDialog.js
+import React, { useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button } from '@mui/material';
 
-const EditTermForm = ({ open, term, onSave, onCancel, onDelete}) => {
-  const [name, setName] = useState(term.name);
-  const [definition, setDefinition] = useState(term.definition);
-  const [acronym, setAcronym] = useState(term.acronym);
-
-  useEffect(() => {
-    setName(term.name);
-    setDefinition(term.definition);
-    setAcronym(term.acronym);
-  }, [term]);
+const NewTermDialog = ({ open, onSave, onCancel }) => {
+  const [name, setName] = useState('');
+  const [definition, setDefinition] = useState('');
+  const [acronym, setAcronym] = useState('');
 
   const handleSubmit = async () => {
-    await onSave(term.id, { name, definition, acronym });
-  };
-
-   const handleDelete = async () => {
-    if (window.confirm('Are you sure you want to delete this term?')) {
-      await onDelete(term.id);
-    }
+    await onSave({ name, definition, acronym });
+    setName('');
+    setDefinition('');
+    setAcronym('');
   };
 
   return (
     <Dialog open={open} onClose={onCancel}>
-      <DialogTitle>Edit Term</DialogTitle>
+      <DialogTitle>Add New Term</DialogTitle>
       <DialogContent>
         <TextField
           autoFocus
@@ -61,12 +52,9 @@ const EditTermForm = ({ open, term, onSave, onCancel, onDelete}) => {
         <Button onClick={handleSubmit} color="primary">
           Save
         </Button>
-         <Button onClick={handleDelete} color="secondary">
-          Delete
-        </Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-export default EditTermForm;
+export default NewTermDialog;
